@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/bg.jpg');
+
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .todo-input {
+            flex-grow: 1;
+            padding: 15px;
+        }
+
+        .todo-button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .todo-text {
+            flex-grow: 1;
+            margin-right: 10px;
+            color:aliceblue;
+            
+        }
+
+        .todo-delete {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 9px 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="header"  style="color:aliceblue">XSS Application</h2>
+        <div class="input-container">
+            <input type="text" id="todoInput" class="todo-input" placeholder="Enter a task">
+            <button onclick="addTodo()" class="todo-button">Add</button>
+        </div>
+        <ul id="todoList" class="todo-list"></ul>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const todoInput = document.getElementById("todoInput");
+        const todoList = document.getElementById("todoList");
+
+        // Function to add a new todo item
+        function addTodo() {
+            const todoText = todoInput.value;
+
+            if (todoText.trim() !== "") {
+                const todoItem = document.createElement("li");
+                todoItem.className = "todo-item";
+
+                const todoTextSpan = document.createElement("span");
+                todoTextSpan.className = "todo-text";
+                todoTextSpan.innerHTML = todoText;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "todo-delete";
+                deleteButton.textContent = "Delete";
+                deleteButton.onclick = function() {
+                    todoList.removeChild(todoItem);
+                };
+
+                todoItem.appendChild(todoTextSpan);
+                todoItem.appendChild(deleteButton);
+                todoList.appendChild(todoItem);
+
+                todoInput.value = "";
+            }
+        }
+    </script>
+</body>
+</html>
